@@ -1,0 +1,222 @@
+/* Exercises Page Specific Styles */
+.exercises-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 2px;
+}
+
+.page-title h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.exercises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.exercise-card {
+    background: var(--card-background);
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.exercise-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, rgba(26, 115, 232, 0.1) 0%, transparent 70%);
+    border-radius: 0 0 0 100%;
+    transition: all 0.3s ease;
+}
+
+.exercise-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    border-color: rgba(26, 115, 232, 0.2);
+}
+
+.exercise-card:hover::before {
+    width: 150px;
+    height: 150px;
+}
+
+.exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.exercise-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.exercise-title {
+    color: var(--text-color);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.exercise-description {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+}
+
+.exercise-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.exercise-date {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.875rem;
+}
+
+.exercise-date svg {
+    width: 16px;
+    height: 16px;
+}
+
+.exercise-status {
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.exercise-status.pending {
+    background: #fff3e0;
+    color: #f57c00;
+}
+
+.exercise-status.completed {
+    background: #e8f5e9;
+    color: #43a047;
+}
+
+.no-exercises {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--card-background);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    grid-column: 1 / -1;
+}
+
+.no-exercises-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 1.5rem;
+    color: var(--border-color);
+}
+
+.no-exercises h3 {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.no-exercises p {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.loading-exercises {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    grid-column: 1 / -1;
+}
+
+.error-message {
+    text-align: center;
+    padding: 2rem;
+    background: #ffebee;
+    border-radius: 12px;
+    color: var(--error-color);
+    grid-column: 1 / -1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .page-title h1 {
+        font-size: 2rem;
+    }
+
+    .exercises-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .exercise-card {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title h1 {
+        font-size: 1.75rem;
+    }
+
+    .exercise-header {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .exercise-meta {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
+    }
+}

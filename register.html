@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إنشاء حساب - منصة الطلاب</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="8.5" cy="7" r="4"></circle>
+                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                    </svg>
+                </div>
+                <h1>إنشاء حساب جديد</h1>
+                <p>انضم إلى منصتنا التعليمية</p>
+            </div>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="fullName">الاسم الكامل</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="أدخل اسمك الكامل" required>
+                    <p class="error-message" id="fullNameError"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="studentId">رقم الطالب</label>
+                    <input type="text" id="studentId" name="studentId" placeholder="أدخل رقم الطالب (يجب أن يبدأ بـ 102568)" required>
+                    <p class="error-message" id="studentIdError"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" name="password" placeholder="أدخل كلمة المرور" required>
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="strengthBar"></div>
+                    </div>
+                    <p class="error-message" id="passwordError"></p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">تأكيد كلمة المرور</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="أعد إدخال كلمة المرور" required>
+                    <p class="error-message" id="confirmPasswordError"></p>
+                </div>
+                
+                <p class="error-message" id="generalError"></p>
+                
+                <button type="submit" class="btn btn-primary">
+                    <span>إنشاء الحساب</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="8.5" cy="7" r="4"></circle>
+                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                    </svg>
+                </button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="js/auth.js"></script>
+    <script type="module">
+        import { registerUser } from './js/auth.js';
+        
+        const passwordInput = document.getElementById('password');
+        const strengthBar = document.getElementById('strengthBar');
+        
+        // Password strength indicator
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            strengthBar.className = 'password-strength-bar';
+            
+            if (password.length === 0) {
+                strengthBar.style.width = '0';
+            } else if (password.length < 6) {
+                strengthBar.classList.add('weak');
+            } else if (password.length >= 6 && password.length < 10) {
+                strengthBar.classList.add('medium');
+            } else {
+                strengthBar.classList.add('strong');
+            }
+        });
+        
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value.trim();
+            const studentId = document.getElementById('studentId').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Clear previous errors
+            document.getElementById('fullNameError').classList.remove('show');
+            document.getElementById('studentIdError').classList.remove('show');
+            document.getElementById('passwordError').classList.remove('show');
+            document.getElementById('confirmPasswordError').classList.remove('show');
+            document.getElementById('generalError').classList.remove('show');
+            
+            let hasError = false;
+            
+            // Validate full name
+            if (!fullName) {
+                document.getElementById('fullNameError').textContent = 'يرجى إدخال الاسم الكامل';
+                document.getElementById('fullNameError').classList.add('show');
+                hasError = true;
+            } else if (fullName.length < 3) {
+                document.getElementById('fullNameError').textContent = 'الاسم الكامل يجب أن يكون 3 أحرف على الأقل';
+                document.getElementById('fullNameError').classList.add('show');
+                hasError = true;
+            }
+            
+            // Validate student ID
+            if (!studentId) {
+                document.getElementById('studentIdError').textContent = 'يرجى إدخال رقم الطالب';
+                document.getElementById('studentIdError').classList.add('show');
+                hasError = true;
+            } else if (!studentId.startsWith('102568')) {
+                document.getElementById('studentIdError').textContent = 'رقم الطالب يجب أن يبدأ بـ 102568';
+                document.getElementById('studentIdError').classList.add('show');
+                hasError = true;
+            } else if (studentId.length < 8) {
+                document.getElementById('studentIdError').textContent = 'رقم الطالب غير صحيح';
+                document.getElementById('studentIdError').classList.add('show');
+                hasError = true;
+            }
+            
+            // Validate password
+            if (!password) {
+                document.getElementById('passwordError').textContent = 'يرجى إدخال كلمة المرور';
+                document.getElementById('passwordError').classList.add('show');
+                hasError = true;
+            } else if (password.length < 6) {
+                document.getElementById('passwordError').textContent = 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+                document.getElementById('passwordError').classList.add('show');
+                hasError = true;
+            }
+            
+            // Validate confirm password
+            if (!confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = 'يرجى تأكيد كلمة المرور';
+                document.getElementById('confirmPasswordError').classList.add('show');
+                hasError = true;
+            } else if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = 'كلمات المرور غير متطابقة';
+                document.getElementById('confirmPasswordError').classList.add('show');
+                hasError = true;
+            }
+            
+            if (hasError) return;
+            
+            // Attempt registration
+            const result = await registerUser(fullName, studentId, password);
+            
+            if (result.success) {
+                window.location.href = 'dashboard.html';
+            } else {
+                document.getElementById('generalError').textContent = result.error || 'حدث خطأ أثناء إنشاء الحساب';
+                document.getElementById('generalError').classList.add('show');
+            }
+        });
+    </script>
+</body>
+</html>

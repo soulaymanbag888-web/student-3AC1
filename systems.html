@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>النظامات - منصة الطلاب</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/content.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                </svg>
+                <span>منصة الطلاب</span>
+            </div>
+            <nav>
+                <a href="dashboard.html">الرئيسية</a>
+                <a href="equations.html">المعادلات</a>
+                <a href="systems.html" class="active">النظامات</a>
+                <a href="exercises.html">التمارين</a>
+                <a href="about.html">عن الموقع</a>
+                <a href="contact.html">اتصل بنا</a>
+                <a href="#" id="logoutBtn">تسجيل الخروج</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1>النظامات</h1>
+        </div>
+
+        <div class="coming-soon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <h2>قريباً</h2>
+            <p>سيتم إضافة قسم النظامات قريباً</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>جميع الحقوق محفوظة - منصة الطلاب</p>
+    </footer>
+
+    <script type="module">
+        import { checkAuthState, logoutUser } from './js/auth.js';
+        
+        checkAuthState((state) => {
+            if (!state.loggedIn) {
+                window.location.href = 'login.html';
+            }
+        });
+        
+        document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            await logoutUser();
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
